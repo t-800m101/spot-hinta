@@ -1,0 +1,32 @@
+name: Scheduled refresh of the outputted HTML file
+
+on:
+  schedule:
+  - cron: '0 * * * *'
+  workflow_dispatch:
+    # For manually triggering the job.
+    inputs:
+      name:
+        description: 'Reason to trigger manually'
+        default: 'testing'
+        required: false
+        type: string
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo content
+      uses: actions/checkout@v3
+    - name: Execute the python script that updates the HTML file and gets the new price data if needed
+      run: python generate_html.py
+    - name: git add
+      run: git add .
+    - name: Commit
+      run: |
+        git config --global user.name 't-800m101 (GitHub Actions bot)'
+        git config --global user.email 'noreply.t800m101@githubactionbot.com'
+        git commit -am "Automaattinen HTML-sivun päivitys"
+        git push
