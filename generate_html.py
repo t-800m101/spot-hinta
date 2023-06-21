@@ -31,7 +31,7 @@ except:
     read_prices_from_internet = True
 
 # Fetch the price data from internet if necessary:
-if read_prices_from_internet or (now.hour >= 15 and (datetime.datetime.strptime(data_json["prices"][0]["startDate"], "%Y-%m-%dT%H:%M:%S.%f%z") - now).total_seconds()/3600 < 20):
+if read_prices_from_internet or (now.hour >= 14 and (datetime.datetime.strptime(data_json["prices"][0]["startDate"], "%Y-%m-%dT%H:%M:%S.%f%z") - now).total_seconds()/3600 < 20):
     print("Getting new spot price data from internet.")
     r = requests.get(url = "https://api.porssisahko.net/v1/latest-prices.json")
     data_json = r.json()
