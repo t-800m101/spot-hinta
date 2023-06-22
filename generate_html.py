@@ -68,7 +68,7 @@ width_per_price = target_bar_max_width / max_price
 table_data_list = []
 date_to_show = ""
 for i in range(len(timestamps_str)):
-    price_bar = "┃" * round(prices_float[i] * width_per_price)
+    price_bar = "█" * round(prices_float[i] * width_per_price)
     if date_to_show != timestamps_str[i]:
         date_to_show = timestamps_str[i]
         table_data_list.append([date_to_show, hours_str[i], prices_str[i], price_bar])
@@ -123,6 +123,7 @@ html_page = """
             text-align: center;
         }
         td.bargraph {
+            font-family: 'Courier New', monospace;
             text-align: left;
             color: #1a5fb4;
             letter-spacing: 0px;
