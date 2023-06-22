@@ -17,7 +17,7 @@ only once per day.
 price_data_filename = "price_data_latest.json"
 html_output_filename = "spot-hintataulukko.html"
 tz = pytz.timezone("Europe/Helsinki")
-target_bar_max_width = 30.0  # set the width of the price visualization
+target_bar_max_width = 20.0  # set the width of the price visualization
 show_also_history = False  # when False, makes the table start from the current time
 read_prices_from_internet = False # False == automatic
 
@@ -66,26 +66,90 @@ max_price = max(prices_float)
 width_per_price = target_bar_max_width / max_price
 
 table_data_list = []
+date_to_show = ""
 for i in range(len(timestamps_str)):
-    price_bar = "┃" * round(prices_float[i] * width_per_price)
-    table_data_list.append([timestamps_str[i], hours_str[i], prices_str[i], price_bar])
+    price_bar = "█" * round(prices_float[i] * width_per_price)
+    if date_to_show != timestamps_str[i]:
+        date_to_show = timestamps_str[i]
+        table_data_list.append([date_to_show, hours_str[i], prices_str[i], price_bar])
+    else:
+        table_data_list.append(["", hours_str[i], prices_str[i], price_bar])  # do not repeat the same date
 
 
 # Generate and write the HTML table and file:
 
 def html_table(nested_list, column_names):
-    yield '<table>'
+    yield '<table class="prices">'
     yield '  <tr><th>'
     yield '    </th><th>'.join(column_names)
     yield '  </th></tr>'
-    for sublist in nested_list:
+    for columns in nested_list:
         yield '  <tr><td>'
-        yield '    </td><td>'.join(sublist)
+        yield '<td class="pricecol">'.join(('<td class="bargraph">'.join('    </td><td>'.join(columns).rsplit("<td>", 1))).rsplit("<td>", 1))  # hacky way to mark the css to the last and second last columns
         yield '  </td></tr>'
     yield '</table>'
 
-html_page = '\n'.join(html_table(table_data_list, ["Päivä", "Tunti", "Hinta", ""]))
-html_page += "<p>Suomen aikaa. Hinnat snt/kWh, sis. alv. 24 %.</p>"
+html_page = """
+<!doctype html>
+
+<html lang="fi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, initial-scale=1">
+    <title>Sähkön hinta nyt</title>
+    <meta name="description" content="Sähkön spot-hinta nykyhetkestä eteenpäin yksinkertaisessa taulukossa ilman mainoksia ja muuta tauhkaa.">
+    <meta name="author" content="t-800m101">
+
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+        table.prices {
+            height:90vh;
+            border-spacing: 0px;
+            font-size:1.9vh;
+            white-space: nowrap;
+        }
+        tr {
+            padding: 0px;
+            margin: 0px;
+        }
+        th, td {
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-left: 2px;
+            padding-right: 0px;
+            text-align: center;
+        }
+        td.bargraph {
+            text-align: left;
+            color: #1a5fb4;
+        }
+        td.pricecol {
+            text-align: right;
+            padding-right: 2px;
+        }
+        p{
+            font-size:1.3vh;
+        }
+        button.refresh {
+            width: 98%;
+            height: 5vh;
+            font-size: 1.7vh;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+"""
+html_page += '\n'.join(html_table(table_data_list, ["Päivä", "Tunti", "Hinta", "(snt/kWh, alv. 24 %)"]))
+html_page += """
+<form action="">
+    <button type="submit" class="refresh">Päivitä</button>
+</form>
+</body>
+</html>
+"""
 
 with open(html_output_filename, 'w') as f:
     f.write(html_page)
