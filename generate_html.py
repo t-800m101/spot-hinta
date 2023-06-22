@@ -17,7 +17,7 @@ only once per day.
 price_data_filename = "price_data_latest.json"
 html_output_filename = "spot-hintataulukko.html"
 tz = pytz.timezone("Europe/Helsinki")
-target_bar_max_width = 23.0  # set the width of the price visualization
+target_bar_max_width = 20.0  # set the width of the price visualization
 show_also_history = False  # when False, makes the table start from the current time
 read_prices_from_internet = False # False == automatic
 
@@ -68,7 +68,11 @@ width_per_price = target_bar_max_width / max_price
 table_data_list = []
 date_to_show = ""
 for i in range(len(timestamps_str)):
-    price_bar = "█" * round(prices_float[i] * width_per_price)
+    price_bar_width = round(prices_float[i] * width_per_price)
+    if price_bar_width >= 0:
+        price_bar = "█" * price_bar_width
+    else:
+        price_bar = "◁"
     if date_to_show != timestamps_str[i]:
         date_to_show = timestamps_str[i]
         table_data_list.append([date_to_show, hours_str[i], prices_str[i], price_bar])
