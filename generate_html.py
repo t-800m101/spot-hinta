@@ -17,7 +17,7 @@ only once per day.
 price_data_filename = "price_data_latest.json"
 html_output_filename = "spot-hintataulukko.html"
 tz = pytz.timezone("Europe/Helsinki")
-target_bar_max_width = 20.0  # set the width of the price visualization
+target_bar_max_width = 23.0  # set the width of the price visualization
 show_also_history = False  # when False, makes the table start from the current time
 read_prices_from_internet = False # False == automatic
 
@@ -68,7 +68,7 @@ width_per_price = target_bar_max_width / max_price
 table_data_list = []
 date_to_show = ""
 for i in range(len(timestamps_str)):
-    price_bar = "█" * round(prices_float[i] * width_per_price)
+    price_bar = "┃" * round(prices_float[i] * width_per_price)
     if date_to_show != timestamps_str[i]:
         date_to_show = timestamps_str[i]
         table_data_list.append([date_to_show, hours_str[i], prices_str[i], price_bar])
@@ -105,10 +105,11 @@ html_page = """
             background-color: #f9f9f9;
         }
         table.prices {
-            height:90vh;
+            height:85vh;
             border-spacing: 0px;
-            font-size:1.9vh;
+            font-size:1.7vh;
             white-space: nowrap;
+            padding-bottom: 4px;
         }
         tr {
             padding: 0px;
@@ -124,6 +125,7 @@ html_page = """
         td.bargraph {
             text-align: left;
             color: #1a5fb4;
+            letter-spacing: 0px;
         }
         td.pricecol {
             text-align: right;
@@ -135,8 +137,19 @@ html_page = """
         button.refresh {
             width: 98%;
             height: 5vh;
+        }
+        .button {
             font-size: 1.7vh;
             font-weight: bold;
+            text-decoration: none;
+            background-color: #EFEFEF;
+            padding: 2px 6px 2px 6px;
+            border-right: 2px solid #101010;
+            border-bottom: 2px solid #101010;
+            display: block;
+            width: 90%;
+            height: 5vh;
+            text-align: center;
         }
     </style>
 </head>
@@ -144,9 +157,7 @@ html_page = """
 """
 html_page += '\n'.join(html_table(table_data_list, ["Päivä", "Tunti", "Hinta", "(snt/kWh, alv. 24 %)"]))
 html_page += """
-<form action="">
-    <button type="submit" class="refresh">Päivitä</button>
-</form>
+<a href="https://htmlpreview.github.io/?https://github.com/t-800m101/spot-hinta/blob/main/spot-hintataulukko.html" class="button">Päivitä</a>
 </body>
 </html>
 """
