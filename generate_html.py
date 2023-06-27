@@ -205,6 +205,7 @@ class PriceTable:
                         font-size: 1.2{'vh' if orientation == "vertical" else 'vw'};
                         font-weight: bold;
                         text-decoration: none;
+                        padding-{'top' if orientation == "vertical" else 'left'}: 2px;
                         color: {'black' if color_theme == "light" else 'white'};
                         background-color: {'#EFEFEF' if color_theme == "light" else '#2F4F4F'};
                         border-right: 2px solid #101010;
@@ -218,6 +219,7 @@ class PriceTable:
                         font-size: 1.2{'vh' if orientation == "vertical" else 'vw'};
                         font-weight: bold;
                         text-decoration: none;
+                        padding-{'top' if orientation == "vertical" else 'left'}: 2px;
                         color: {'black' if color_theme == "light" else 'white'};
                         background-color: {'#EFEFEF' if color_theme == "light" else '#2F4F4F'};
                         border-right: 2px solid #101010;
@@ -241,6 +243,7 @@ class PriceTable:
         return html_page
 
 data_table = PriceTable(data_json["prices"], target_bar_max_width, show_also_history)
+data_table_horizontal = PriceTable(data_json["prices"], 18, show_also_history)
 
 
 # Generate and write the HTML tables to files:
@@ -252,10 +255,10 @@ with open(html_output_filename_prefix + "_tumma.html", 'w') as f:
     f.write(data_table.get_html_page("_tumma", "_vaaka_tumma", "vertical", "dark"))
 
 with open(html_output_filename_prefix + "_vaaka_tumma.html", 'w') as f:
-    f.write(data_table.get_html_page("_vaaka_tumma", "_vaaka", "horizontal", "dark"))
+    f.write(data_table_horizontal.get_html_page("_vaaka_tumma", "_vaaka", "horizontal", "dark"))
 
 with open(html_output_filename_prefix + "_vaaka.html", 'w') as f:
-    f.write(data_table.get_html_page("_vaaka", "", "horizontal", "light"))
+    f.write(data_table_horizontal.get_html_page("_vaaka", "", "horizontal", "light"))
 
 
 
