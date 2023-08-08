@@ -75,7 +75,7 @@ class PriceTable:
         self.max_price = max(all_prices)
 
         # Bar graph scaling based on that:
-        self.__bar_width_per_price = target_bar_max_width / self.max_price
+        self.__bar_width_per_price = target_bar_max_width / self.max_price if self.max_price > 0 else 1
 
         # Parse rest of the data:
         date_to_show = ""
