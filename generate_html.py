@@ -36,6 +36,7 @@ except:
 if read_prices_from_internet or (now.hour >= 14 and (datetime.datetime.strptime(data_json["prices"][0]["startDate"], "%Y-%m-%dT%H:%M:%S.%f%z") - now).total_seconds()/3600 < 20):
     print("Getting new spot price data from internet.")
     r = requests.get(url = "https://api.porssisahko.net/v1/latest-prices.json")
+    assert r.ok, f"Price HTTP response must be less than 400. Was {r.status_code}"
     data_json = r.json()
     
     with open(price_data_filename, 'wb') as f:
