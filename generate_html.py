@@ -16,6 +16,7 @@ only once per day.
 """
 
 # Configs:
+
 price_data_filename = "price_data_latest.json"
 html_output_filename_prefix = "spot-hintataulukko"
 tz = pytz.timezone("Europe/Helsinki")
@@ -33,6 +34,7 @@ except:
     read_prices_from_internet = True
 
 # Fetch the price data from internet if necessary:
+
 if read_prices_from_internet or (now.hour >= 14 and (datetime.datetime.strptime(data_json["prices"][0]["startDate"], "%Y-%m-%dT%H:%M:%S.%f%z") - now).total_seconds()/3600 < 20):
     print("Getting new spot price data from internet.")
     r = requests.get(url = "https://api.porssisahko.net/v1/latest-prices.json")
@@ -43,7 +45,8 @@ if read_prices_from_internet or (now.hour >= 14 and (datetime.datetime.strptime(
         f.write(r.content)
 
 
-# Parse the data
+# Turn the price data into a table that can be outputted as an HTML document.
+# The horizontal table layout is currently supported only on Firefox.
 
 @dataclass
 class DataColumn:
@@ -65,7 +68,7 @@ class PriceTable:
         self.date_column = DataColumn(header="Päivä", header_css_class="date", content_css_class="date")
         self.hour_column = DataColumn(header="Tunti", header_css_class="hour", content_css_class="hour")
         self.price_column = DataColumn(header="Hinta", header_css_class="price", content_css_class="price")
-        self.bar_graph_column = DataColumn(header="(snt/kWh, alv. 24 %)", header_css_class="bargraph", content_css_class="bargraph")
+        self.bar_graph_column = DataColumn(header="(snt/kWh, sis. alv)", header_css_class="bargraph", content_css_class="bargraph")
         
         # Find the max price:
         all_prices = []
@@ -126,10 +129,10 @@ class PriceTable:
     def get_html_page(self, current_layout_suffix: str, next_layout_suffix: str, orientation: str = "vertical", color_theme: str = "light"):
         if orientation == "vertical":
             self.price_column.header = "Hinta"
-            self.bar_graph_column.header = "(snt/kWh, alv. 24 %)"
+            self.bar_graph_column.header = "(snt/kWh, sis. alv)"
         else:
             self.price_column.header = ""
-            self.bar_graph_column.header = "Hinta<br>(snt/kWh,<br>alv. 24 %)"
+            self.bar_graph_column.header = "Hinta<br>(snt/kWh,<br>sis. alv)"
 
         html_page = f"""
             <!doctype html>
