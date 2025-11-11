@@ -1,9 +1,13 @@
 # spot-hinta
-[Sähkön spot-hinta nykyhetkestä eteenpäin yksinkertaisessa taulukossa ilman mainoksia ja muuta tauhkaa.](https://htmlpreview.github.io/?https://github.com/t-800m101/spot-hinta/blob/main/spot-hintataulukko.html)
+[Pörssisähkön hinta nykyhetkestä eteenpäin yksinkertaisessa taulukossa ilman mainoksia ja muuta tauhkaa.](https://raw.githack.com/t-800m101/spot-hinta/refs/heads/main/spot-hintataulukko_tumma.html)
 
 ## Linkki taulukkoon
-Helpoin tapa avata taulukko on käyttää GitHubin HTML-esikatselua:  
-https://htmlpreview.github.io/?https://github.com/t-800m101/spot-hinta/blob/main/spot-hintataulukko.html
+Helpoin tapa avata taulukko on käyttää HTML-esikatselua:
+https://raw.githack.com/t-800m101/spot-hinta/refs/heads/main/spot-hintataulukko_tumma.html
+
+## Käyttöohje ja ominaisuuksia
+- Tuntikeskiarvotaulukon kuvaajassa (palkissa) näkyy myös tunnin alin ja korkein hinta, jos ne poikkeavat riittävästi tunnin keskiarvosta.
+- Vaakasuuntainen taulukko toiminee vain Firefox-selaimessa.
 
 ## Datan lähde
-Sähkön hintatiedot luetaan [Porssisahko.net -palvelusta](https://porssisahko.net/api). Kiitos palvelun ylläpitäjille!
+Sähkön hintatiedot luetaan [Porssisahko.net -palvelusta](https://porssisahko.net/api), jonka [kuvaaja](https://porssisahko.net/) toimii hyvin myös. Kiitos palvelun ylläpitäjille!
