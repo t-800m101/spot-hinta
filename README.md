@@ -10,4 +10,4 @@ https://raw.githack.com/t-800m101/spot-hinta/refs/heads/main/spot-hintataulukko_
 - Vaakasuuntainen taulukko toiminee vain Firefox-selaimessa.
 
 ## Datan lähde
-Sähkön hintatiedot luetaan [Porssisahko.net -palvelusta](https://porssisahko.net/api), jonka [kuvaaja](https://porssisahko.net/) toimii hyvin myös. Kiitos palvelun ylläpitäjille!
+Sähkön hintatiedot luetaan [Porssisahko.net -palvelusta](https://porssisahko.net/api), jonka [kuvaaja](https://porssisahko.net/) toimii hyvin myös (vaikka onkin yllättävän raskas ja siten kuluttaa turhaan sähköä jopa taustalla auki ollessaan). Kiitos palvelun ylläpitäjille!
