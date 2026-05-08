@@ -1,9 +1,8 @@
 # spot-hinta
-[Pörssisähkön hinta nykyhetkestä eteenpäin yksinkertaisessa taulukossa ilman mainoksia ja muuta tauhkaa.](https://raw.githack.com/t-800m101/spot-hinta/refs/heads/main/spot-hintataulukko_tumma.html)
+[Pörssisähkön hinta nykyhetkestä eteenpäin yksinkertaisessa taulukossa ilman mainoksia ja muuta tauhkaa.](https://t-800m101.github.io/spot-hinta/spot-hintataulukko.html)
 
 ## Linkki taulukkoon
-Helpoin tapa avata taulukko on käyttää HTML-esikatselua:
-https://raw.githack.com/t-800m101/spot-hinta/refs/heads/main/spot-hintataulukko_tumma.html
+[https://t-800m101.github.io/spot-hinta/spot-hintataulukko.html](https://t-800m101.github.io/spot-hinta/spot-hintataulukko.html)
 
 ## Käyttöohje ja ominaisuuksia
 - Tuntikeskiarvotaulukon kuvaajassa (palkissa) näkyy myös tunnin alin ja korkein hinta, jos ne poikkeavat riittävästi tunnin keskiarvosta.
