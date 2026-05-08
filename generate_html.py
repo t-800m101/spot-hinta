@@ -25,7 +25,7 @@ tz = pytz.timezone("Europe/Helsinki")
 target_bar_max_width = 20.0  # set the width of the price visualization
 show_also_history = False  # when False, makes the table start from the current time
 read_prices_from_internet = False # False == automatic
-html_preview_url_start = "https://raw.githack.com/t-800m101/spot-hinta/refs/heads/main/"
+html_preview_url_start = "https://t-800m101.github.io/spot-hinta/"
 
 data_json = {}
 data_json_15min = {}
