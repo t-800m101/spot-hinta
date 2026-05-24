@@ -41,7 +41,7 @@ except:
 
 # Fetch the price data from internet if necessary:
 
-if read_prices_from_internet or (now.hour >= 14 and (datetime.datetime.strptime(data_json["prices"][0]["startDate"], "%Y-%m-%dT%H:%M:%S.%f%z") - now).total_seconds()/3600 < 20):
+if read_prices_from_internet or (datetime.datetime.strptime(data_json["prices"][0]["startDate"], "%Y-%m-%dT%H:%M:%S.%f%z") - now).total_seconds()/3600 < 11:
     print("Getting new spot price data from internet.")
     r = requests.get(url = "https://api.porssisahko.net/v1/latest-prices.json")
     assert r.ok, f"Price HTTP response must be less than 400. Was {r.status_code}"
@@ -137,7 +137,7 @@ class PriceTable:
                         assert len(all_pricepoints_for_this_hour) == 4, f"Hour {timestamp_hour} had {len(all_pricepoints_for_this_hour)} prices. Should have 4."
                         hour_min_price = min(all_pricepoints_for_this_hour)
                         min_price_indicator_at = round(hour_min_price * self.__bar_width_per_price)
-                        if min_price_indicator_at < len(price_bar):
+                        if min_price_indicator_at < len(price_bar) and min_price_indicator_at >= 0:
                             price_bar_list = list(price_bar)
                             price_bar_list[min_price_indicator_at] = "▜"
                             price_bar = ''.join(price_bar_list)

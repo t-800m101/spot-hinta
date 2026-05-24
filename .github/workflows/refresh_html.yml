@@ -2,7 +2,10 @@ name: Scheduled refresh of the outputted HTML file
 
 on:
   schedule:
-  - cron: '0 * * * *'
+  - cron: '6 * * * *'
+    timezone: 'Europe/Helsinki'
+  - cron: '36 14 * * *'
+    timezone: 'Europe/Helsinki'
   workflow_dispatch:
     # For manually triggering the job.
     inputs:
